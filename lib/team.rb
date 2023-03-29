@@ -33,4 +33,19 @@ class Team
       "player_count" => self.player_count
     }
   end
+
+  def average_cost_of_player
+    average_cost = self.total_value / self.player_count
+    average_cost_digits = average_cost.digits
+    string_digits = average_cost_digits.map {|num| num.to_s}
+
+    siloed_nums = string_digits.each_slice(3).map {|num| num.join}
+    siloed_nums.join(",").reverse!.prepend("$")
+  end
+
+  def players_by_last_name
+    string = []
+    @roster.each {|player| string << player.last_name}
+    string.sort.join(", ")
+  end
 end
